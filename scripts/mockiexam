@@ -1,0 +1,4 @@
+#!/bin/sh
+# Runs the mockiexam CLI from source (builds on first use). See AGENTS.md.
+root="$(cd "$(dirname "$0")/.." && pwd)"
+exec swift run -q --package-path "$root/Packages/MockiCore" -c release mockiexam "$@"

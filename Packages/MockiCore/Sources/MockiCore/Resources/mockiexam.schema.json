@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mockiexams.local/schema/v1/mockiexam.schema.json",
+  "title": "MockiExams exam (format 1)",
+  "description": "One exam. Store it as exam.json in a folder; image paths are relative to that folder. `mockiexam validate` is the authority: it also checks cross-references (answer ids exist, case study ids exist, images exist).",
+  "type": "object",
+  "required": ["id", "title", "questions"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "formatVersion": { "const": 1 },
+    "id": { "type": "string", "minLength": 1, "description": "Stable id. Re-installing the same id replaces the exam and keeps its history." },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "passPercent": { "type": "integer", "minimum": 0, "maximum": 100, "default": 70 },
+    "scale": {
+      "description": "Show a vendor-style scaled score, mapped linearly from the percentage. When present, pass/fail uses scale.pass.",
+      "type": "object",
+      "required": ["min", "max", "pass"],
+      "additionalProperties": false,
+      "properties": { "min": { "type": "integer" }, "max": { "type": "integer" }, "pass": { "type": "integer" } }
+    },
+    "timeLimitMinutes": { "type": "number", "exclusiveMinimum": 0, "description": "Applies in exam simulation mode." },
+    "allowBack": { "type": "boolean", "default": true, "description": "false: in exam simulation mode the candidate cannot return to earlier questions." },
+    "partialCredit": { "type": "boolean", "default": false, "description": "Default for questions: award a share of the points for partly correct answers." },
+    "topicWeights": {
+      "description": "Exam blueprint: target share of the exam per topic, in percent. Should add up to 100. Used by the designer's coverage view and the score report.",
+      "type": "object",
+      "additionalProperties": { "type": "number", "minimum": 0, "maximum": 100 }
+    },
+    "caseStudies": { "type": "array", "items": { "$ref": "#/$defs/caseStudy" } },
+    "sections": {
+      "description": "Assembles the exam from the question bank, in order. Questions in no section stay in the bank and are not asked. Omit to ask every question.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "questions"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "questions": { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "Question ids, in order." },
+          "shuffle": { "type": "boolean", "default": true, "description": "Allow shuffling within this section when the run shuffles." }
+        }
+      }
+    },
+    "questions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/question" } }
+  },
+  "$defs": {
+    "markdown": { "type": "string", "description": "Inline Markdown (**bold**, *italic*, `code`, links) plus fenced ``` code blocks." },
+    "exhibit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "text": { "type": "string", "description": "Shown monospaced: CLI output, configs, logs." },
+        "image": { "$ref": "#/$defs/assetPath" }
+      },
+      "oneOf": [{ "required": ["text"] }, { "required": ["image"] }]
+    },
+    "assetPath": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.(png|jpe?g|gif|heic|tiff?|bmp|webp|pdf)$", "description": "Relative path inside the exam folder, e.g. images/topology.png" },
+    "caseStudy": {
+      "type": "object",
+      "required": ["id", "scenario"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "scenario": { "$ref": "#/$defs/markdown" },
+        "exhibits": { "type": "array", "items": { "$ref": "#/$defs/exhibit" } }
+      }
+    },
+    "choice": {
+      "type": "object",
+      "required": ["id", "text"],
+      "additionalProperties": false,
+      "properties": { "id": { "type": "string" }, "text": { "$ref": "#/$defs/markdown" } }
+    },
+    "question": {
+      "type": "object",
+      "required": ["id", "kind", "prompt"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "enum": ["single", "multiple", "trueFalse", "yesNo", "ordering", "matching", "dropdowns", "fillIn", "hotspot"] },
+        "topic": { "type": "string", "description": "Exam objective or domain; drives per-topic scores. Default \"General\"." },
+        "prompt": { "$ref": "#/$defs/markdown" },
+        "exhibits": { "type": "array", "items": { "$ref": "#/$defs/exhibit" } },
+        "caseStudy": { "type": "string", "description": "Id of a caseStudies entry this question belongs to." },
+        "points": { "type": "number", "exclusiveMinimum": 0, "default": 1 },
+        "partialCredit": { "type": "boolean" },
+        "choices": { "type": "array", "items": { "$ref": "#/$defs/choice" } },
+        "items": { "type": "array", "items": { "$ref": "#/$defs/choice" } },
+        "targets": { "type": "array", "items": { "$ref": "#/$defs/choice" } },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "options", "answer"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "options": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+              "answer": { "type": "string" }
+            }
+          }
+        },
+        "statements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "text", "answer"],
+            "additionalProperties": false,
+            "properties": { "id": { "type": "string" }, "text": { "type": "string" }, "answer": { "type": "boolean" } }
+          }
+        },
+        "blanks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "accept": { "type": "array", "items": { "type": "string" } },
+              "caseSensitive": { "type": "boolean", "default": false },
+              "pattern": { "type": "string", "description": "Regex the whole trimmed answer must match." }
+            },
+            "anyOf": [{ "required": ["accept"] }, { "required": ["pattern"] }]
+          }
+        },
+        "image": { "$ref": "#/$defs/assetPath" },
+        "regions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "x", "y", "width", "height"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "x": { "type": "number", "minimum": 0, "maximum": 1 },
+              "y": { "type": "number", "minimum": 0, "maximum": 1 },
+              "width": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+              "height": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
+            }
+          }
+        },
+        "answer": {
+          "description": "single: choice id. multiple: [choice ids]. trueFalse: boolean. ordering: [choice ids in order]. matching: {itemId: targetId}. hotspot: [region ids]. Not used by yesNo, dropdowns, fillIn (their answers live in statements, rows, blanks).",
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } },
+            { "type": "boolean" },
+            { "type": "object", "additionalProperties": { "type": "string" } }
+          ]
+        },
+        "explanation": { "$ref": "#/$defs/markdown" }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "enum": ["single", "multiple", "ordering"] } } }, "then": { "required": ["choices", "answer"] } },
+        { "if": { "properties": { "kind": { "const": "trueFalse" } } }, "then": { "required": ["answer"], "properties": { "answer": { "type": "boolean" } } } },
+        { "if": { "properties": { "kind": { "const": "yesNo" } } }, "then": { "required": ["statements"] } },
+        { "if": { "properties": { "kind": { "const": "matching" } } }, "then": { "required": ["items", "targets", "answer"], "properties": { "answer": { "type": "object" } } } },
+        { "if": { "properties": { "kind": { "const": "dropdowns" } } }, "then": { "required": ["rows"] } },
+        { "if": { "properties": { "kind": { "const": "fillIn" } } }, "then": { "required": ["blanks"] } },
+        { "if": { "properties": { "kind": { "const": "hotspot" } } }, "then": { "required": ["image", "regions", "answer"] } }
+      ]
+    }
+  }
+}

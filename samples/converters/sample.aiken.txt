@@ -1,0 +1,17 @@
+Which protocol resolves hostnames to IP addresses?
+A. DHCP
+B. DNS
+C. ARP
+D. NTP
+ANSWER: B
+
+Which two are link-state routing protocols?
+A) OSPF
+B) RIP
+C) IS-IS
+D) EIGRP
+ANSWER: A, C
+
+This question has no answer line and should be skipped.
+A. Yes
+B. No

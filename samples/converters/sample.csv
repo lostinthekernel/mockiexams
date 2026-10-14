@@ -1,0 +1,7 @@
+id,topic,question,A,B,C,D,answer,explanation
+ssh-port,Ports,Which port does SSH use?,21,22,23,25,B,SSH listens on 22.
+private,Addressing,"Which are private ranges? (Choose two.)",10.0.0.0/8,172.32.0.0/12,192.168.0.0/16,1.1.1.0/24,"A,C","10/8, 172.16/12 and 192.168/16."
+tcp-reliable,Concepts,TCP guarantees ordered delivery.,,,,,true,
+show-ver,IOS,"Command that shows the IOS version (""show ..."")",,,,,show version|sh ver,
+by-text,Ports,Which port does HTTPS use?,80,443,8080,,443,Answer given as option text.
+bad,Ports,Answer names no option,1,2,3,,Z,

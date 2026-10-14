@@ -1,0 +1,215 @@
+{
+  "$schema": "../../Packages/MockiCore/Sources/MockiCore/Resources/mockiexam.schema.json",
+  "formatVersion": 1,
+  "id": "sample-networking-sim",
+  "title": "Sample: Network & Server Simulation",
+  "description": "Original sample covering every question kind, with image exhibits, hotspots and a case study.",
+  "passPercent": 70,
+  "scale": { "min": 100, "max": 900, "pass": 720 },
+  "timeLimitMinutes": 20,
+  "allowBack": true,
+  "topicWeights": { "Models": 10, "Addressing": 15, "Hardware": 15, "Services": 15, "IOS": 10, "Security": 15, "Troubleshooting": 20 },
+  "caseStudies": [
+    {
+      "id": "branch",
+      "title": "Case study: Branch office",
+      "scenario": "**Overview.** A branch office connects to the internet through firewall FW1. Router R1 routes between the LAN and the firewall. Switch SW1 carries two VLANs: VLAN 10 for users (DHCP) and VLAN 20 for servers.\n\n**Problem.** Users on PC-A report they can't reach the internet, but they can reach SRV1.\n\n**Requirements.**\n- Keep VLAN 10 and VLAN 20 separated.\n- Only FW1 should translate addresses to the public range.",
+      "exhibits": [
+        { "title": "Topology", "image": "images/topology.png" },
+        { "title": "R1 interfaces", "image": "images/terminal.png" }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "osi-transport",
+      "kind": "single",
+      "topic": "Models",
+      "prompt": "Which OSI layer is responsible for end-to-end delivery, segmentation and ports?",
+      "choices": [
+        { "id": "a", "text": "Network" },
+        { "id": "b", "text": "Transport" },
+        { "id": "c", "text": "Session" },
+        { "id": "d", "text": "Data link" }
+      ],
+      "answer": "b",
+      "explanation": "Layer 4 (Transport) handles segmentation and process-to-process delivery using **ports**, e.g. TCP and UDP."
+    },
+    {
+      "id": "private-ranges",
+      "kind": "multiple",
+      "topic": "Addressing",
+      "prompt": "Which of these are RFC 1918 private IPv4 ranges? (Choose two.)",
+      "choices": [
+        { "id": "a", "text": "`10.0.0.0/8`" },
+        { "id": "b", "text": "`172.32.0.0/12`" },
+        { "id": "c", "text": "`192.168.0.0/16`" },
+        { "id": "d", "text": "`169.254.0.0/16`" }
+      ],
+      "answer": ["a", "c"],
+      "explanation": "The private ranges are 10/8, 172.16/12 and 192.168/16. 169.254/16 is link-local (APIPA)."
+    },
+    {
+      "id": "udp-reliable",
+      "kind": "trueFalse",
+      "topic": "Models",
+      "prompt": "UDP retransmits lost segments.",
+      "answer": false,
+      "explanation": "UDP is connectionless and has no retransmission; TCP provides reliability."
+    },
+    {
+      "id": "console-port",
+      "kind": "hotspot",
+      "topic": "Hardware",
+      "prompt": "You need to perform the initial configuration of the new switch with a rollover cable. **Click the port you should use.**",
+      "image": "images/switch-panel.png",
+      "regions": [
+        { "id": "leds", "label": "Status LEDs", "x": 0.033, "y": 0.307, "width": 0.117, "height": 0.167 },
+        { "id": "ports", "label": "Access ports 1–24", "x": 0.187, "y": 0.233, "width": 0.525, "height": 0.600 },
+        { "id": "sfp", "label": "SFP uplinks", "x": 0.728, "y": 0.350, "width": 0.110, "height": 0.200 },
+        { "id": "console", "label": "Console port", "x": 0.862, "y": 0.330, "width": 0.047, "height": 0.173 },
+        { "id": "usb", "label": "USB port", "x": 0.920, "y": 0.350, "width": 0.043, "height": 0.127 }
+      ],
+      "answer": ["console"],
+      "explanation": "Out-of-box configuration uses the **console** port and a rollover (console) cable."
+    },
+    {
+      "id": "bmc-port",
+      "kind": "hotspot",
+      "topic": "Hardware",
+      "prompt": "The server must be managed out-of-band even when the OS is down. **Click the port to cable to the management network.**",
+      "image": "images/server-rear.png",
+      "regions": [
+        { "id": "psu", "label": "Power supplies", "x": 0.028, "y": 0.263, "width": 0.277, "height": 0.569 },
+        { "id": "vga", "label": "VGA", "x": 0.343, "y": 0.412, "width": 0.088, "height": 0.219 },
+        { "id": "usb", "label": "USB", "x": 0.443, "y": 0.444, "width": 0.085, "height": 0.175 },
+        { "id": "mgmt", "label": "MGMT (BMC)", "x": 0.552, "y": 0.412, "width": 0.050, "height": 0.219 },
+        { "id": "lan", "label": "LAN 1–4", "x": 0.635, "y": 0.412, "width": 0.185, "height": 0.281 },
+        { "id": "serial", "label": "Serial", "x": 0.835, "y": 0.412, "width": 0.080, "height": 0.219 }
+      ],
+      "answer": ["mgmt"],
+      "explanation": "The dedicated **MGMT** port belongs to the baseboard management controller, which works independently of the host OS."
+    },
+    {
+      "id": "dhcp-dora",
+      "kind": "ordering",
+      "topic": "Services",
+      "prompt": "Move the DHCP messages to the answer area in the order they are sent. Not all messages are used.",
+      "choices": [
+        { "id": "discover", "text": "DHCPDISCOVER" },
+        { "id": "offer", "text": "DHCPOFFER" },
+        { "id": "request", "text": "DHCPREQUEST" },
+        { "id": "ack", "text": "DHCPACK" },
+        { "id": "release", "text": "DHCPRELEASE" },
+        { "id": "inform", "text": "DHCPINFORM" }
+      ],
+      "answer": ["discover", "offer", "request", "ack"],
+      "partialCredit": true,
+      "explanation": "Discover → Offer → Request → Acknowledge (DORA). Release and Inform are not part of lease acquisition."
+    },
+    {
+      "id": "ports-match",
+      "kind": "matching",
+      "topic": "Services",
+      "prompt": "Drag each protocol to its default port. Each port may be used once, more than once, or not at all.",
+      "items": [
+        { "id": "ssh", "text": "SSH" },
+        { "id": "rdp", "text": "RDP" },
+        { "id": "ldaps", "text": "LDAPS" },
+        { "id": "snmp", "text": "SNMP" }
+      ],
+      "targets": [
+        { "id": "22", "text": "22" },
+        { "id": "161", "text": "161" },
+        { "id": "389", "text": "389" },
+        { "id": "636", "text": "636" },
+        { "id": "3389", "text": "3389" }
+      ],
+      "answer": { "ssh": "22", "rdp": "3389", "ldaps": "636", "snmp": "161" },
+      "partialCredit": true,
+      "points": 2
+    },
+    {
+      "id": "show-routes",
+      "kind": "fillIn",
+      "topic": "IOS",
+      "prompt": "Enter the full IOS command, from privileged EXEC mode, that displays the IPv4 routing table.",
+      "blanks": [{ "id": "cmd", "label": "Command", "accept": ["show ip route"], "pattern": "sh(o(w)?)? ip ro(u(te?)?)?" }],
+      "explanation": "`show ip route` (abbreviations such as `sh ip ro` are accepted)."
+    },
+    {
+      "id": "subnet-calc",
+      "kind": "fillIn",
+      "topic": "Addressing",
+      "prompt": "A host has address `172.16.45.130/26`. Fill in the values.",
+      "blanks": [
+        { "id": "network", "label": "Network address", "accept": ["172.16.45.128"] },
+        { "id": "broadcast", "label": "Broadcast address", "accept": ["172.16.45.191"] },
+        { "id": "hosts", "label": "Usable hosts", "accept": ["62"] }
+      ],
+      "partialCredit": true,
+      "points": 3,
+      "explanation": "/26 = 64 addresses per block. 130 falls in 128–191, so network .128, broadcast .191, 62 usable hosts."
+    },
+    {
+      "id": "acl-hotarea",
+      "kind": "dropdowns",
+      "topic": "Security",
+      "prompt": "Complete the extended ACL entry so hosts in 10.0.10.0/24 can reach SRV1 over HTTPS only.",
+      "exhibits": [{ "title": "Partial ACL", "text": "ip access-list extended WEB-ONLY\n  [action] tcp 10.0.10.0 0.0.0.255 host 10.0.20.10 eq [port]\n  deny ip any any log" }],
+      "rows": [
+        { "id": "action", "label": "[action]", "options": ["permit", "deny", "remark"], "answer": "permit" },
+        { "id": "port", "label": "[port]", "options": ["80", "443", "8443", "22"], "answer": "443" }
+      ],
+      "partialCredit": true
+    },
+    {
+      "id": "branch-statements",
+      "kind": "yesNo",
+      "topic": "Troubleshooting",
+      "caseStudy": "branch",
+      "prompt": "For each statement, select **Yes** if the statement is true. Otherwise, select **No**.",
+      "statements": [
+        { "id": "s1", "text": "R1's LAN-facing interface Gi0/0 is up/up.", "answer": true },
+        { "id": "s2", "text": "Gi0/1 is down because of a cabling fault.", "answer": false },
+        { "id": "s3", "text": "PC-A and SRV1 are in the same VLAN.", "answer": false }
+      ],
+      "partialCredit": true,
+      "explanation": "Gi0/1 is **administratively down** (shut down in config), not a cabling fault. PC-A is in VLAN 10 and SRV1 in VLAN 20."
+    },
+    {
+      "id": "branch-nat",
+      "kind": "hotspot",
+      "topic": "Troubleshooting",
+      "caseStudy": "branch",
+      "prompt": "Per the requirements, which device should perform NAT to the public range? **Click it in the exhibit.**",
+      "image": "images/topology.png",
+      "regions": [
+        { "id": "isp", "label": "ISP", "x": 0.394, "y": 0.022, "width": 0.212, "height": 0.144 },
+        { "id": "firewall", "label": "FW1", "x": 0.394, "y": 0.225, "width": 0.212, "height": 0.144 },
+        { "id": "router", "label": "R1", "x": 0.394, "y": 0.428, "width": 0.212, "height": 0.144 },
+        { "id": "switch", "label": "SW1", "x": 0.394, "y": 0.631, "width": 0.212, "height": 0.128 },
+        { "id": "pc1", "label": "PC-A", "x": 0.114, "y": 0.834, "width": 0.182, "height": 0.128 },
+        { "id": "server", "label": "SRV1", "x": 0.409, "y": 0.834, "width": 0.182, "height": 0.128 },
+        { "id": "ap", "label": "AP1", "x": 0.704, "y": 0.834, "width": 0.182, "height": 0.128 }
+      ],
+      "answer": ["firewall"],
+      "explanation": "The requirements say only FW1 translates to the public range."
+    },
+    {
+      "id": "branch-next-step",
+      "kind": "single",
+      "topic": "Troubleshooting",
+      "caseStudy": "branch",
+      "prompt": "What should you check first to restore internet access for PC-A?",
+      "choices": [
+        { "id": "a", "text": "The default route on R1 toward FW1" },
+        { "id": "b", "text": "The VLAN 20 trunk on SW1" },
+        { "id": "c", "text": "The SSID on AP1" },
+        { "id": "d", "text": "DNS records on SRV1" }
+      ],
+      "answer": "a",
+      "explanation": "Local traffic works but internet traffic doesn't, which points at R1's path to the firewall."
+    }
+  ]
+}

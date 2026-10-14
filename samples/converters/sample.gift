@@ -1,0 +1,34 @@
+// Sample GIFT file covering the supported question shapes.
+$CATEGORY: $course$/Networking/Ports
+
+::dns-port:: Which port does DNS use? {
+  =53 # Correct.
+  ~67
+  ~443
+  ####DNS uses 53/UDP, and TCP for large responses.
+}
+
+::rfc1918:: Which ranges are private (RFC 1918)? {
+  ~%50%10.0.0.0/8
+  ~%50%192.168.0.0/16
+  ~%-100%8.8.8.0/24
+}
+
+$CATEGORY: $course$/Networking/Concepts
+
+::udp-reliable:: UDP retransmits lost segments. {F}
+
+::show-run:: Which command shows the running configuration? {
+  =show running-config
+  =show run
+}
+
+::match-ports:: Match each protocol to its port. {
+  =SSH -> 22
+  =HTTPS -> 443
+  =RDP -> 3389
+}
+
+::hosts-26:: How many usable hosts does a /26 provide? {#62}
+
+::essay:: Describe your ideal network. {}

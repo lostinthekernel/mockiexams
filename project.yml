@@ -1,0 +1,52 @@
+name: MockiExams
+options:
+  bundleIdPrefix: app.mockiexams
+  deploymentTarget:
+    macOS: "15.0"
+packages:
+  MockiCore:
+    path: Packages/MockiCore
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "2.0"
+    CURRENT_PROJECT_VERSION: "2"
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGN_STYLE: Manual
+targets:
+  MockiExams:
+    type: application
+    platform: macOS
+    sources: [Sources]
+    dependencies:
+      - package: MockiCore
+        product: MockiCore
+    info:
+      path: Sources/App/Info.plist
+      properties:
+        CFBundleDisplayName: MockiExams
+        LSApplicationCategoryType: public.app-category.education
+        NSHumanReadableCopyright: ""
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: MockiExams Project
+            CFBundleTypeRole: Editor
+            LSHandlerRank: Owner
+            LSTypeIsPackage: true
+            LSItemContentTypes: [app.mockiexams.project]
+        UTExportedTypeDeclarations:
+          - UTTypeIdentifier: app.mockiexams.project
+            UTTypeDescription: MockiExams Project
+            UTTypeConformsTo: [com.apple.package, public.composite-content]
+            UTTypeTagSpecification:
+              public.filename-extension: [mockiexam]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.mockiexams.MockiExams
+        CODE_SIGN_ENTITLEMENTS: MockiExams.entitlements
+        ENABLE_HARDENED_RUNTIME: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+schemes:
+  MockiExams:
+    build:
+      targets:
+        MockiExams: all

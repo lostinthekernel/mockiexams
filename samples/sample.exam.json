@@ -1,0 +1,92 @@
+{
+  "id": "sample-networking-basics",
+  "title": "Sample: Networking Basics",
+  "passPercent": 70,
+  "timeLimitMinutes": 10,
+  "questions": [
+    {
+      "id": "osi-transport",
+      "kind": "single",
+      "topic": "Models",
+      "prompt": "Which OSI layer is responsible for end-to-end delivery, segmentation and ports?",
+      "choices": [
+        { "id": "a", "text": "Network" },
+        { "id": "b", "text": "Transport" },
+        { "id": "c", "text": "Session" },
+        { "id": "d", "text": "Data link" }
+      ],
+      "answer": ["b"],
+      "explanation": "Layer 4 (Transport) handles segmentation and process-to-process delivery using **ports**, e.g. TCP and UDP."
+    },
+    {
+      "id": "private-ranges",
+      "kind": "multiple",
+      "topic": "Addressing",
+      "prompt": "Which of these are RFC 1918 private IPv4 ranges? Choose two.",
+      "choices": [
+        { "id": "a", "text": "`10.0.0.0/8`" },
+        { "id": "b", "text": "`172.32.0.0/12`" },
+        { "id": "c", "text": "`192.168.0.0/16`" },
+        { "id": "d", "text": "`169.254.0.0/16`" }
+      ],
+      "answer": ["a", "c"],
+      "explanation": "The private ranges are 10/8, 172.16/12 and 192.168/16. 169.254/16 is link-local (APIPA)."
+    },
+    {
+      "id": "subnet-hosts",
+      "kind": "single",
+      "topic": "Addressing",
+      "prompt": "How many usable host addresses does a `/27` IPv4 subnet provide?",
+      "choices": [
+        { "id": "a", "text": "32" },
+        { "id": "b", "text": "30" },
+        { "id": "c", "text": "62" },
+        { "id": "d", "text": "14" }
+      ],
+      "answer": ["b"],
+      "explanation": "A /27 leaves 5 host bits: 2⁵ = 32 addresses, minus network and broadcast = 30."
+    },
+    {
+      "id": "dhcp-dora",
+      "kind": "ordering",
+      "topic": "Services",
+      "prompt": "Put the DHCP lease messages in the order they are sent.",
+      "choices": [
+        { "id": "discover", "text": "Discover" },
+        { "id": "offer", "text": "Offer" },
+        { "id": "request", "text": "Request" },
+        { "id": "ack", "text": "Acknowledge" }
+      ],
+      "answer": ["discover", "offer", "request", "ack"],
+      "explanation": "The client broadcasts Discover, servers reply with Offer, the client sends Request, and the chosen server confirms with Ack."
+    },
+    {
+      "id": "dns-port",
+      "kind": "single",
+      "topic": "Services",
+      "prompt": "Which well-known port does DNS use?",
+      "choices": [
+        { "id": "a", "text": "53" },
+        { "id": "b", "text": "67" },
+        { "id": "c", "text": "123" },
+        { "id": "d", "text": "443" }
+      ],
+      "answer": ["a"],
+      "explanation": "DNS uses port 53 over UDP, and TCP for large responses and zone transfers."
+    },
+    {
+      "id": "switch-forwarding",
+      "kind": "single",
+      "topic": "Switching",
+      "prompt": "A switch receives a frame for a MAC address that is not in its table. What does it do?",
+      "choices": [
+        { "id": "a", "text": "Drops the frame" },
+        { "id": "b", "text": "Floods it out every port except the one it arrived on" },
+        { "id": "c", "text": "Sends it to the default gateway" },
+        { "id": "d", "text": "Replies with an ARP request" }
+      ],
+      "answer": ["b"],
+      "explanation": "Unknown unicast frames are flooded within the VLAN until the switch learns where the destination lives."
+    }
+  ]
+}
