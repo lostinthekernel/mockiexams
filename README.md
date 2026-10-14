@@ -1,6 +1,6 @@
 # MockiExams
 
-An app for practicing IT certification exams or any other type of exam, with a built-in designer for writing your own. Experience a live simulation of a testing center on your Mac.
+Practice IT certifications or prepare for any exam with realistic testing simulations and custom tests you can create yourself, all on your Mac! Go beyond ordinary practice tests. Experience a realistic exam environment or build your own tests, right from your Mac. MockiExams is a free, open-source project.
 
 | [Download MockiExams for macOS](https://github.com/lostinthekernel/mockiexams/releases/latest/download/MockiExams-1.0.dmg) | Version 1.0 |
 | :--- | ---: |
