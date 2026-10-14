@@ -2,6 +2,8 @@
 
 An app for practicing IT certification exams or any other type of exam, with a built-in designer for writing your own. Experience a live simulation of a testing center on your Mac.
 
+**[Download MockiExams 1.0](https://github.com/lostinthekernel/mockiexams/releases/latest/download/MockiExams-1.0.dmg)** for macOS 15 or later.
+
 ![A hotspot question in exam simulation](docs/screenshots/exam.png)
 
 ![The Designer's question bank](docs/screenshots/designer.png)
