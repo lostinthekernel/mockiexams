@@ -1,14 +1,24 @@
 # MockiExams
 
-A macOS app for practising IT certification exams, with a built-in designer for writing your own.
+An app for practicing IT certification exams or any other type of exam, with a built-in designer for writing your own. Experience a live simulation of a testing center on your Mac.
 
-- **Player:** practice mode with instant feedback, or a timed exam simulation in a modern or classic testing-center layout, with a review screen, score report and per-topic results.
-- **Designer:** a question bank table with filters and bulk edits, a step-by-step question builder, hotspot drawing on images, case studies, sections, and blueprint coverage.
-- **Nine question kinds:** single and multiple choice, true/false, yes/no, dropdowns, fill in the blank, matching, ordering, and hotspots.
-- **Open format:** an exam is a folder with `exam.json` and its images. See [FORMAT.md](FORMAT.md).
+![A hotspot question in exam simulation](docs/screenshots/exam.png)
+
+![The Designer's question bank](docs/screenshots/designer.png)
+
+Need a closer look? Keep case study scenarios and exhibits right beside each question, and open any exhibit to zoom in on the details:
+
+![A case-study question with the scenario panel and image exhibits](docs/screenshots/casestudy.png)
+
+![An exhibit opened in the viewer](docs/screenshots/exhibit.png)
+
+- **Player:** Practice at your own pace with instant feedback, or create a timed exam simulation in a modern or classic testing-center layout. Review your answers: score report and per-topic results.
+- **Designer:** Manage exams with a question bank table that supports filters and bulk edits, a step-by-step question builder, hotspot drawing on images, case studies, sections, and blueprint coverage.
+- **Nine question kinds:** Choose from single and multiple choice, true/false, yes/no, dropdowns, fill in the blank, matching, ordering, and hotspots.
+- **Open format:** Each exam has its own folder containing `exam.json` and its images. See [FORMAT.md](FORMAT.md) for the details.
 - **Command line:** `mockiexam` validates, converts (Aiken, Moodle GIFT, CSV), and installs exams.
 
-MockiExams reads only its own open format. It does not open encrypted or proprietary exam-simulator files.
+MockiExams reads only its own open format and does not support encrypted or proprietary files from other exam simulators.
 
 ## Requirements
 
@@ -41,13 +51,13 @@ scripts/mockiexam validate my-exam/
 scripts/mockiexam install my-exam/                    # adds it to the app's library
 ```
 
-You can also build an exam in the app with File › New, then use Install to Library. `samples/` has a small exam that uses every question kind.
+You can also build an exam in the app by selecting File › New, then choosing Install to Library. `samples/` has a small exam that uses every question kind.
 
 Only import questions you have the right to use, such as your own notes, official sample questions, or openly licensed question banks.
 
 ## Project layout
 
-`AGENTS.md` describes the code layout and the rules for changing the format. Coding agents read it, and it works as a contributor guide too.
+Curious about how the project is organized? `AGENTS.md` describes the code layout and the rules for changing the format. Coding agents like Claude Code read it, and it works as a contributor guide too.
 
 ## License
 
