@@ -1,0 +1,1 @@
+{"id":"t","title":"T","scale":{"min":900,"max":100,"pass":50},"questions":[{"id":"q1","kind":"single","prompt":"P q1","choices":[{"id":"a","text":"A"},{"id":"b","text":"B"},{"id":"c","text":"C"}],"answer":"a"}]}

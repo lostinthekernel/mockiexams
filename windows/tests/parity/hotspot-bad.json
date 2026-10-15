@@ -1,0 +1,1 @@
+{"id":"t","title":"T","questions":[{"id":"q","kind":"hotspot","prompt":"P","image":"../x.png","regions":[{"id":"r","x":0.8,"y":0,"width":0.5,"height":0.5},{"id":"s"},{"id":"r","x":0,"y":0,"width":0.1,"height":0.1}],"answer":["r","zz"]}]}

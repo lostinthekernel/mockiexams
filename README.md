@@ -1,11 +1,14 @@
 # MockiExams
 
-Practice IT certifications or prepare for any exam with realistic testing simulations and custom tests you can create yourself, all on your Mac! Go beyond ordinary practice tests. Experience a realistic exam environment or build your own tests, right from your Mac. MockiExams is a free, open-source project.
+Practice IT certifications or prepare for any exam with realistic testing simulations and custom tests you can create yourself, on your Mac or PC! Go beyond ordinary practice tests. Experience a realistic exam environment or build your own tests, right from your computer. MockiExams is a free, open-source project.
 
-| [Download MockiExams for macOS](https://github.com/lostinthekernel/mockiexams/releases/latest/download/MockiExams-1.0.dmg) | Version 1.0 |
-| :--- | ---: |
+| Platform | Download | Version |
+| :--- | :--- | ---: |
+| macOS (Apple silicon and Intel) | [MockiExams-1.0.dmg](https://github.com/lostinthekernel/mockiexams/releases/latest/download/MockiExams-1.0.dmg) | 1.0 |
+| Windows x64 | [MockiExams-1.0-Windows-x64-Setup.exe](https://github.com/lostinthekernel/mockiexams/releases/latest/download/MockiExams-1.0-Windows-x64-Setup.exe) | 1.0 |
+| Windows ARM64 | [MockiExams-1.0-Windows-arm64-Setup.exe](https://github.com/lostinthekernel/mockiexams/releases/latest/download/MockiExams-1.0-Windows-arm64-Setup.exe) | 1.0 |
 
-> **First launch:** Open MockiExams > click **Done** > System Settings > Privacy & Security > **Open Anyway**
+> **First launch on macOS:** Open MockiExams > click **Done** > System Settings > Privacy & Security > **Open Anyway**
 
 ![A hotspot question in exam simulation](docs/screenshots/exam.png)
 
@@ -40,6 +43,8 @@ open build/Build/Products/Release/MockiExams.app
 ```
 
 Or run `xcodegen generate` and open `MockiExams.xcodeproj` in Xcode.
+
+The Windows installers are built with `scripts/build-windows.sh`; see [AGENTS.md](AGENTS.md).
 
 Run the core tests with:
 

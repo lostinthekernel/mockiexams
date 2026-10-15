@@ -1,0 +1,1 @@
+{"id":"t","title":"T","titel":"x","scale":{"min":1,"max":9,"pass":5,"pas":1},"questions":[{"id":"q1","kind":"single","prompt":"P q1","choices":[{"id":"a","text":"A"},{"id":"b","text":"B"},{"id":"c","text":"C"}],"answer":"a","answers":["a"]},{"id":"q2","kind":"single","prompt":"P q1","choices":[{"id":"a","text":"A"},{"id":"b","text":"B"},{"id":"c","text":"C"}],"answer":"a"}]}

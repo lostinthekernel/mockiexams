@@ -10,3 +10,7 @@ Sources/App/Info.plist
 
 # macOS
 .DS_Store
+
+# .NET build output (Windows app)
+bin/
+obj/

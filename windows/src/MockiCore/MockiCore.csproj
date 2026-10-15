@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>MockiCore</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- One schema for both cores: the Swift package's copy is the source. -->
+    <EmbeddedResource Include="..\..\..\Packages\MockiCore\Sources\MockiCore\Resources\mockiexam.schema.json" LogicalName="mockiexam.schema.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="MockiCore.Tests" />
+  </ItemGroup>
+
+</Project>
